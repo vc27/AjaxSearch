@@ -24,26 +24,6 @@ class AjaxSearchVCWP {
 	
 	
 	
-	/**
-	 * action
-	 * 
-	 * @access public
-	 * @var string
-	 **/
-	var $action = 'search-ajax';
-	
-	
-	
-	/**
-	 * object_name
-	 * 
-	 * @access public
-	 * @var string
-	 **/
-	var $object_name = 'searchAjax';
-	
-	
-	
 	
 	
 	
@@ -54,9 +34,11 @@ class AjaxSearchVCWP {
 	 * @updated 00.00.13
 	 **/
 	function __construct() {
+		global $AjaxSettingsVCWP;
+		$this->set( 'settings', $AjaxSettingsVCWP );
 		
 		// uri for enque scripts
-		$this->set( 'template_directory', get_stylesheet_directory_uri() . "/addons/AjaxSearch" );
+		$this->set( 'template_directory', get_stylesheet_directory_uri() . $this->settings->location . "/" . basename(__DIR__) );
 
 		// hook method after_setup_theme
 		add_action( 'init', array( &$this, 'init' ) );
@@ -173,10 +155,11 @@ class AjaxSearchVCWP {
 	function wp_enqueue_scripts() {
 		
 		// Adds a javascript object to be used by searchPosts class
-		wp_localize_script( 'search-posts', $this->object_name, array(
+		wp_localize_script( 'search-posts', $this->settings->object_name, array(
 			'home_url' => home_url(),
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			'action' => $this->action,
+			'action' => $this->settings->action,
+			'nonce' => wp_create_nonce($this->settings->action)
 			) );
 		
 		wp_enqueue_script( 'search-posts' );

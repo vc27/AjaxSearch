@@ -41,7 +41,7 @@ var searchPosts = {
 				
 				jQuery.post( searchAjax.ajaxurl, {
 					action : searchAjax.action,
-					nonce : jQuery(form).attr('data-nonce'),
+					nonce : searchAjax.nonce,
 					switch_case : jQuery(form).attr('data-switch_case'),
 					post_title : jQuery( 'input[name="post_title"]', form ).val()
 				}, 

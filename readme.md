@@ -2,14 +2,6 @@
 
 Ajax Search is an addon that gives basic functionality for an ajax search via WP_Query. The default search is specific to the post-type "page". The structure of the code is relative to my current style of coding. There are literally dozens of ways to write this functionality, if you feel the need to re-arrange the code and find a better configuration I would love to see it! I'm all about learning new stuff!
 
-# Adding the code #
-
-I use a directory called "addons" in my child themes. This code base is designed to live there. 
-
-Example: wp-content/themes/MyChildTheme/addons/AjaxSearch/initiate.php
-
-You may move the code where ever you please. If you do move the code you will need to change the 'template_directory' variable in AjaxSearchVCWP class in the __construct method.
-
 # There are three elements #
 
 1. HTML form

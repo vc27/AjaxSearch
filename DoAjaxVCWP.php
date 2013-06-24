@@ -43,16 +43,6 @@ class DoAjaxVCWP {
 	
 	
 	
-	/**
-	 * action
-	 * 
-	 * @access public
-	 * @var string
-	 **/
-	var $action = 'search-ajax';
-	
-	
-	
 	
 	
 	
@@ -63,8 +53,10 @@ class DoAjaxVCWP {
 	 * @updated 00.00.13
 	 **/
 	function __construct() {
+		global $AjaxSettingsVCWP;
+		$this->set( 'settings', $AjaxSettingsVCWP );
 		
-		add_action( "wp_ajax_$this->action", array( &$this, 'do_ajax' ) );
+		add_action( "wp_ajax_" . $this->settings->action, array( &$this, 'do_ajax' ) );
 
 	} // end function __construct
 	
@@ -360,7 +352,7 @@ class DoAjaxVCWP {
 	 **/
 	function have_nonce() {
 		
-		if ( isset( $_POST['nonce'] ) AND ! empty( $_POST['nonce'] ) AND wp_verify_nonce( $_POST['nonce'], $this->action ) ) {
+		if ( isset( $_POST['nonce'] ) AND ! empty( $_POST['nonce'] ) AND wp_verify_nonce( $_POST['nonce'], $this->settings->action ) ) {
 			$this->set( 'have_nonce', 1 );
 		} else {
 			$this->set( 'have_nonce', 0 );
